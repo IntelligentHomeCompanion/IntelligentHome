@@ -24,3 +24,4 @@ Very zoomed out we should be looking at the following components:
     - webui-theme: Theming for the website, that instead of totally replacing the UI, just replaces the theme
     - Plugin Manager: While this itself likely won't be a swappable service, rather a core API, this will manage the installation and updating of community plugins.
     - ServiceHub: Again not itself a plugin, but handles all installed plugins registering for specific services
+    - notifications: The system that manages notifications, so that they can easily be displayed anywhere as needed

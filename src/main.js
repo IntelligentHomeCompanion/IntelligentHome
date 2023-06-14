@@ -10,7 +10,10 @@ const exterminate = new Exterminate();
     exterminate: exterminate
   });
 
+  companion.init();
 
+  console.log("Started up");
+  console.log(companion.config.get("core.port"));
 })();
 
 // Register all events that warrant a safe shutdown
