@@ -25,3 +25,11 @@ Very zoomed out we should be looking at the following components:
     - Plugin Manager: While this itself likely won't be a swappable service, rather a core API, this will manage the installation and updating of community plugins.
     - ServiceHub: Again not itself a plugin, but handles all installed plugins registering for specific services
     - notifications: The system that manages notifications, so that they can easily be displayed anywhere as needed
+
+# Plugin Manager
+
+Since the core itself, will contain as few APIs as possible, it doesn't make much sense to try and registering all the core services of the system via the core, when those can be plugins anyway.
+
+What may be best is to load each plugin exactly the same, but some of them can identify themselves as being one of these core services then that itself is logged via the ServiceHub, where from there the ServiceHub can be the intended way to interact with each specific service, where since it knows of them, we could have `companion.serviceHub.getWeb().pluginName` or something like that. Meanwhile all other plugins that aren't in charge of core services, would still be normally available as plugins, meanwhile accessible via the ServiceHub for whatever service they are, relating to things more like devices and such.
+
+An important distinction is that Core Services: refer to the core aspects of the companion application, meanwhile Services: Just refer to code only services of the Home Companion, such as being able to set a timer and such.

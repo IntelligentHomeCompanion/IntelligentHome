@@ -13,7 +13,11 @@ class Configuration {
       core: {
         port: 8080
       }
+      pluginManager: 
     };
+
+    // Register the save function to the shutdown of the core
+    companion.exterminate.add("core.config.save", this.save);
 
   }
 
@@ -85,6 +89,11 @@ class Configuration {
        return undefined;
      }
 
+   }
+
+   // Should exist to save the configuration, either on update, or otherwise
+   save() {
+     console.log("Saving Config...");
    }
 
 }
