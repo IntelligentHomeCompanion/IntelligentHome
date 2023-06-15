@@ -35,10 +35,10 @@ class Exterminate {
    * @desc Triggers the calling of ever registered shutdown function.
    * @param {string} callee - The ID for what's caused the shutdown
    */
-  trigger(callee) {
+  async trigger(callee) {
     console.log(`${callee} signal receivied`);
 
-    this.registry.forEach((value, key, map) => {
+    this.registry.forEach(async (value, key, map) => {
       if (typeof value === "function") {
         if (key === "server") {
           // This should be the reserved key for the actual ExpressJS server

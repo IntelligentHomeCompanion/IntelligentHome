@@ -14,6 +14,10 @@ const exterminate = new Exterminate();
 
   console.log("Started up");
   console.log(companion.config.get("core.port"));
+
+  companion.config.set("core.plugin.secret", "hello world");
+  console.log(companion.config.get("core.plugin.secret"));
+  console.log(companion.config.config);
 })();
 
 // Register all events that warrant a safe shutdown

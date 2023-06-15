@@ -21,35 +21,70 @@ class Configuration {
    * Allows the retrevial of existing settings
    * config.get("core.port");
    */
-  get(keypath) {
+  get(keypath, curObj = false) {
     let keypathArr = keypath.split(".");
-    console.log(`keypath: ${keypath} - keypathArr: ${keypathArr}`);
 
-    return keypathArr.reduce((prev, curr) => prev?.[curr], this.config);
-    //if (this.config[...keypathArr] !== null) {
-    //  return this.config[...keypathArr];
-    //}
+    let value;
 
-    //return null;
+    if (curObj !== false) {
+      value = curObj[keypathArr[0]] ?? null;
+    } else {
+      value = this.config[keypathArr[0]] ?? null;
+    }
+
+    if (value === null) {
+      return value;
+    }
+
+    if (keypathArr.length > 1) {
+      keypathArr.shift();
+      return this.get(keypathArr.join("."), value);
+    } else {
+      return value;
+    }
   }
 
   /**
    * Allows setting a settings key to a specific value
    * config.set("core.port", 8080);
+   * You can even set a deep object that doesn't yet exist such as:
+   * config.set("core.plugin.notexist.notexist.notexist", "hello world");
    */
-   set(keypath, value) {
+   set(keypath, value, curObj = false) {
      let keypathArr = keypath.split(".");
 
-     //if (this.config[...keypathArr] !== null) {
-       // The key has already been set, and we should change the existing value
+     let obj;
 
-     //} else if (typeof this.config[...keypathArr.slice(, -1)] === "object") {
-       // The parent object of this key exists, meanwhile this specific key
-       // does not yet exist
+     if (curObj !== false) {
+       obj = curObj[keypathArr[0]] ?? null;
 
-     //}
+       if (obj === null) {
+         curObj[keypathArr[0]] = {};
+         obj = curObj[keypathArr[0]];
+       }
+     } else {
+       obj = this.config[keypathArr[0]] ?? null;
 
-     // Otherwise the key nor parent object exists yet, we will fail silently here.
+       if (typeof obj === "undefined") {
+         this.config[keypathArr[0]] = {};
+         obj = curObj[keypathArr[0]];
+       }
+     }
+
+     if (keypathArr.length > 1) {
+       keypathArr.shift();
+       return this.set(keypathArr.join("."), value, obj);
+     } else {
+       // We are in the final position of the keypath
+       // lets set the value
+       if (curObj !== false) {
+         curObj[keypathArr[0]] = value;
+       } else {
+         this.config[keypathArr[0]] = value;
+       }
+       return undefined;
+     }
+
    }
 
 }
