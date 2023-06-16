@@ -12,8 +12,18 @@ class Configuration {
     this.config = {
       core: {
         port: 8080
+      },
+      pluginManager: {
+        pluginListing: [
+          // This array should only list files and names of plugins, along with
+          // enabled, disabled status
+          {
+            name: "clock",
+            location: "./plugins/clock",
+            status: "disabled"
+          }
+        ]
       }
-      pluginManager: 
     };
 
     // Register the save function to the shutdown of the core
