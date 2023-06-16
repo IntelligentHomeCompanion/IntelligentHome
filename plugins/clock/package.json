@@ -4,5 +4,12 @@
   "description": "",
   "main": "./src/main.js",
   "author": "confused-Techie",
-  "license": "MIT"
+  "license": "MIT",
+  "companion": {
+    "version": "1.0.0",
+    "type": "service",
+    "intents": {
+      "get_thing": "getTime"
+    }
+  }
 }

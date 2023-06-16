@@ -18,6 +18,11 @@ const exterminate = new Exterminate();
 })();
 
 // Register all events that warrant a safe shutdown
+process.on("exit", async () => {
+  // This is the normal exit handler
+  await exterminate.trigger("exit");
+});
+
 process.on("SIGTERM", async () => {
   await exterminate.trigger("SIGTERM");
 });
