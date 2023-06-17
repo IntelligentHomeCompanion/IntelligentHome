@@ -1,0 +1,12 @@
+{
+  "name": "mystery-binary-switch",
+  "version": "1.0.0",
+  "description": "Useless, mystery binary switch.",
+  "main": "./main.js",
+  "author": "confused-Techie",
+  "license": "MIT",
+  "companion": {
+    "version": "1.0.0",
+    "type": "device"
+  }
+}

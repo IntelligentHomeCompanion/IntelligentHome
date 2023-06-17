@@ -21,6 +21,10 @@ class Plugin {
   initPlugin() {
     if (typeof this.instance === "undefined") {
       this.instance = require(`${path.resolve(this.location)}`);
+
+      if (typeof this.instance.init === "function") {
+        this.instance.init();
+      }
     }
   }
 

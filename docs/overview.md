@@ -42,6 +42,15 @@ A big problem, is how do we interact with different plugins?
 
 This can be rather simple, each devices have an agreed on feature set, then a `companion` key in the `package.json` can provide those individual functions that match that feature set, with standard values that will be provided.
 
+To create interactions with devices, it's difficult to decide what system to choose that will provide the greatest success.
+
+- Google Home: https://developers.home.google.com/cloud-to-cloud/guides
+- HomeAssistant: https://developers.home-assistant.io/docs/core/entity
+
+Both of these attempt to define every single type of device that might exist, as well as the properties or functions for them all. It may be best to find a middle ground between these to best support everything that might be possible.
+
+For example, the properties of devices as supported by HomeAssistant can be significant help, meanwhile Google Home's method of preforming actions on devices is quite flexible.
+
 ## services
 
 This one is much harder. Since technically what anyone says would have to be converted into a serializable set of data that can be provided, that needs to be rich and generic enough that any service plugin can take advantage of it, meanwhile still attempting to retain all the information present. Even worse, it ideally would still need to be usable to every plugin. It wouldn't make much sense to make every single plugin decode text or audio data into something usable.
