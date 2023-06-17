@@ -1,5 +1,6 @@
 class Configuration {
   constructor() {
+    // `companion` is not available in this constructor 
     // We could collect any environment variables wanted here,
     // but we should leave the configuration collection till init()
     this.config = {};
@@ -20,7 +21,7 @@ class Configuration {
           {
             name: "clock",
             location: "./plugins/clock",
-            status: "disabled"
+            status: "enabled"
           }
         ]
       }

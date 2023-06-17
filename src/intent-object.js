@@ -14,14 +14,20 @@ class IntentObject extends SchemaObject {
       // not an object
     } else {
       // Do another kind of fancy setup here?
+      // Such as automatically decode a string based intent object format.
     }
   }
 
-  isLike() {
+  /**
+   * This function is intended to do cool stuff by checking synonyms and whatnot
+   * to determine how similar the `provided` phrase/word is to the `control`
+   * phrase/word. And if sufficiently similar, returns true, otherwise false.
+   */
+  isLike(provided, control) {
     // One day do something cool, yeah?
     return true;
   }
-  
+
 }
 
 module.exports = IntentObject;

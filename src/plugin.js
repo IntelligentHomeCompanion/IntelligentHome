@@ -11,7 +11,7 @@ class Plugin {
     this.meta = {};
 
     this.initData();
-    
+
     if (this.status === "enabled") {
       this.initPlugin();
     }
@@ -38,6 +38,10 @@ class Plugin {
     if (this.status === "enabled") {
       this.initPlugin();
     }
+  }
+
+  getType() {
+    return this.meta?.companion?.type ?? "";
   }
 
 }

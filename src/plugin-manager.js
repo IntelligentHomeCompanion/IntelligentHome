@@ -2,6 +2,7 @@ const Plugin = require("./plugin.js");
 
 class PluginManager {
   constructor() {
+    // `companion` is not available in this constructor 
     this.pluginListing;
     this.plugins = new Map();
   }
@@ -23,6 +24,18 @@ class PluginManager {
 
   getPlugins() {
     return this.plugins;
+  }
+
+  getServicePlugins() {
+    let pluginList = new Map();
+
+    this.plugins.forEach((value, key, map) => {
+      if (value.getType() === "service") {
+        pluginList.set(key, value);
+      }
+    });
+
+    return pluginList;
   }
 
 }

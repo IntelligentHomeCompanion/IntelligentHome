@@ -15,6 +15,20 @@ const exterminate = new Exterminate();
   console.log("Started up");
 
   console.log(companion.pluginManager.getPlugins());
+
+  console.log("called intent");
+  let commandRes = companion.command.add({
+    type: "intent",
+    content: {
+      kind: "get_thing",
+      intent: {
+        name: "time"
+      }
+    }
+  });
+
+  console.log(commandRes);
+
 })();
 
 // Register all events that warrant a safe shutdown

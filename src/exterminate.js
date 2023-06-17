@@ -5,6 +5,7 @@
  */
 class Exterminate {
   constructor() {
+    // `companion` is not available in this constructor 
     // Registry tracks all items we want to shutdown
     this.registry = new Map();
   }

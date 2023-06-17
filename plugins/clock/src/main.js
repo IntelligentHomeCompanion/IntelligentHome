@@ -10,11 +10,12 @@
  * can be more accurate.
  */
 function _getTime(opts) {
-  if (opts.hasName() && opts.isLike(opts.name, "time")) {
-    return 1;
-  } else {
-    return 0;
-  }
+  let confidence = 0;
+
+  if (opts.hasName()) { confidence += 0.5; }
+  if (opts.isLike(opts.name, "time")) { confidence += 0.5; }
+
+  return confidence;
 }
 
 /**
@@ -22,9 +23,10 @@ function _getTime(opts) {
  * that will actually be called with any given intent
  */
 function getTime(opts) {
-
+  return new Date().toLocaleString();
 }
 
 module.exports = {
+  _getTime,
   getTime,
 };
