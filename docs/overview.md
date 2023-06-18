@@ -51,6 +51,14 @@ Both of these attempt to define every single type of device that might exist, as
 
 For example, the properties of devices as supported by HomeAssistant can be significant help, meanwhile Google Home's method of preforming actions on devices is quite flexible.
 
+What we can do for devices:
+  * Intents that aim to command an action are regular intents, just with a special intent of command that will need to be handled by an intent handler plugin.
+  * Then a command is it's own object that should be passed as a directive object.
+  * This directive object can then target any one device and preform actions on it. If the original intent needed multiple actions preformed
+    then the intent handler for the action must create multiple directives as needed.
+  * The directive then will be similar to Google's Structure of controls for an object with parameters. Meanwhile each device will share several properties like HomeAssistant.
+  * Each plugin for a device will have an `init()` function called during load. This init will allow the plugin to preform whatever setup is needed and begin either loading previously found devices, or start searching for new devices. Once a device is found it can create a new device from the global classes and add that to the global `devices` class that will store all active devices. These active devices then will receive directives as needed.
+
 ## services
 
 This one is much harder. Since technically what anyone says would have to be converted into a serializable set of data that can be provided, that needs to be rich and generic enough that any service plugin can take advantage of it, meanwhile still attempting to retain all the information present. Even worse, it ideally would still need to be usable to every plugin. It wouldn't make much sense to make every single plugin decode text or audio data into something usable.
