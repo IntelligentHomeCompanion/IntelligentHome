@@ -12,6 +12,10 @@ class Intent {
   constructor(intentKind, intentObj) {
     this.intentKind = intentKind;
     this.intentObj = intentObj;
+
+    // Items for the sake of history
+    this.compatiblePlugins = new Map();
+    this.plugin;
   }
 
   /**
@@ -25,29 +29,27 @@ class Intent {
       return;
     }
 
-    let compatiblePlugins = new Map();
-
     potentialPlugins.forEach((value, key, map) => {
       if (typeof value.meta?.companion.intents[this.intentKind] === "string" && value.status === "enabled") {
-        compatiblePlugins.set(key, value);
+        this.compatiblePlugins.set(key, value);
       }
     });
 
-    if (compatiblePlugins.size === 0) {
+    if (this.compatiblePlugins.size === 0) {
       console.log("Intent is unable to act without any compatible plugins.");
       return;
     }
 
     // Now with our list of plugins that can work with our intent type, we need
     // to rank these results to determine which to call.
-    let plugin = this.rankIntentHandler(compatiblePlugins);
+    this.plugin = this.rankIntentHandler(this.compatiblePlugins);
 
-    if (typeof plugin === "boolean" && plugin === false) {
+    if (typeof this.plugin === "boolean" && this.plugin === false) {
       console.log("Intent is unable to act without a ranked plugin.");
       return;
     }
 
-    let intentResult = plugin.instance[`${plugin.meta.companion.intents[this.intentKind]}`](this.intentObj);
+    let intentResult = this.plugin.instance[`${this.plugin.meta.companion.intents[this.intentKind]}`](this.intentObj);
 
     return intentResult;
   }

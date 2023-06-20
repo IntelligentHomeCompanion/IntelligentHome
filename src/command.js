@@ -6,6 +6,7 @@
 
 const Intent = require("./intent.js");
 const IntentObject = require("./intent-object.js");
+const History = require("./history.js");
 
 /**
  * @class Command
@@ -16,6 +17,7 @@ const IntentObject = require("./intent-object.js");
 class Command {
   constructor() {
     // `companion` is not available in this constructor
+    this.history = new History();
   }
 
   /**
@@ -42,6 +44,8 @@ class Command {
    *    - content: The content of this command type.
    */
   add(opts) {
+    let historyId = this.history.addCommand(opts);
+    let res;
     switch(opts.type) {
       case "audio": {
         throw new Error("The Command Type 'audio' is not yet supported!");
@@ -52,12 +56,11 @@ class Command {
         break;
       }
       case "intent": {
-        return this.handleIntent(opts.content);
+        res = this.handleIntent(opts.content, historyId);
         break;
       }
       case "directive": {
-        return this.handleDirective(opts.content);
-        //throw new Error("The Command Type 'directive' is not yet supported!");
+        res = this.handleDirective(opts.content, historyId);
         break;
       }
       default: {
@@ -65,12 +68,13 @@ class Command {
         break;
       }
     }
+    this.history.editCommand(historyId, "resolution", res);
   }
 
   /**
    * This function is intended to handle a specific intent.
    */
-  handleIntent(obj) {
+  handleIntent(obj, historyId) {
     if (typeof obj.kind !== "string" || typeof obj.intent !== "object") {
       throw new Error("Invalid Intent Object passed!");
     }
@@ -83,6 +87,8 @@ class Command {
     // but we could also leave this handling up to whoever called the command
     // since only they will know the format of this data to be displayed.
     // Otherwise we can return
+
+    this.history.editCommand(historyId, "object", intent);
     return res;
   }
 
@@ -91,13 +97,15 @@ class Command {
    * device. These aren't complex, and instead the burden of complexity is placed
    * on whoever calls the command
    */
-   async handleDirective(obj) {
+   async handleDirective(obj, historyId) {
      let device = companion.inventory.devices.get(obj.target);
 
      if (device === undefined) {
        throw new Error(`Device: ${obj.target} does not exist!`);
      }
 
+     this.history.editCommand(historyId, "object", device);
+     
      if (typeof device[obj.command] === "function") {
        return device[obj.command](obj.params);
      } else if (typeof device[`${obj.command}Async`] === "function") {
