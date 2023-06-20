@@ -7,11 +7,22 @@
 const Intent = require("./intent.js");
 const IntentObject = require("./intent-object.js");
 
+/**
+ * @class Command
+ * @classdesc The `companion.command` global orchestrates all commands in the
+ * system, including controlling devices, managing intents, and decoding text
+ * and audio into intents.
+ */
 class Command {
   constructor() {
     // `companion` is not available in this constructor
   }
 
+  /**
+   * @function init
+   * The initalization function for the Command class. Currently an empty placeholder.
+   * @memberof Command
+   */
   init() {
 
   }
