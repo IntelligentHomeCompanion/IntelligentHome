@@ -10,6 +10,7 @@ class Device {
     this.discoveryPlugin = opts.plugin ?? "Not Assigned";
     this.name = opts.name ?? "Device";
     this.id = opts.id ?? uuidv4();
+    this.capabilities = [];
 
     // Our Update Functions
     this.update = opts.update ?? null;
@@ -18,6 +19,20 @@ class Device {
     // Save our `opts` for later use
     this.opts = opts;
   }
+
+  /**
+   * Mainly used to register any update functions to the global timing utility
+   */
+   init() {
+     companion.timer.global.on("refresh", async () => {
+       if (typeof this.update === "function") {
+         this.update();
+       }
+       if (typeof this.updateAsync === "function") {
+         await this.updateAsync();
+       }
+     });
+   }
 
   /**
    * This function allows the addition of a new capability via a string, adding
@@ -30,6 +45,7 @@ class Device {
       case "binary_switch": {
         // Parameters declaration
         this.isOn = params.isOn ?? this.opts.isOn ?? false;
+        this.capabilities.push("binary_switch");
 
         // Function declaration
         this.turnOn = params.turnOn ?? this.opts.turnOn ?? null;
@@ -48,30 +64,4 @@ class Device {
 
 }
 
-/**
- * Below this will be all the additional classes that could be used
- */
-
-class BinarySwitch extends Device {
-  constructor(opts) {
-    super(opts);
-
-    this.addCapability("binary_switch");
-  }
-
-  //statusObj() {
-  //  return {
-  //    on: this.isOn
-  //  };
-  //}
-
-  //statusText() {
-  //  return `${this.name} is ${!this.isOn ? "not" : ""} powered on.`;
-  //}
-
-}
-
-module.exports = {
-  Device,
-  BinarySwitch,
-};
+module.exports = Device;

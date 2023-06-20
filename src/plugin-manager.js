@@ -2,7 +2,7 @@ const Plugin = require("./plugin.js");
 
 class PluginManager {
   constructor() {
-    // `companion` is not available in this constructor 
+    // `companion` is not available in this constructor
     this.pluginListing;
     this.plugins = new Map();
   }

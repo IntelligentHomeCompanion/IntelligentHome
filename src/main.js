@@ -29,6 +29,17 @@ const exterminate = new Exterminate();
 
   console.log(commandRes);
 
+  let directiveRes = await companion.command.add({
+    type: "directive",
+    content: {
+      command: "turnOn",
+      target: "dont-ever-set-the-id",
+      params: {
+      }
+    }
+  });
+  console.log(directiveRes);
+
 })();
 
 // Register all events that warrant a safe shutdown

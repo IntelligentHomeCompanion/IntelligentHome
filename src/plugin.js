@@ -25,6 +25,14 @@ class Plugin {
       if (typeof this.instance.init === "function") {
         this.instance.init();
       }
+
+      // Additional setup of the plugin depending on what type it is
+      if (this.getType() === "device") {
+        companion.timer.global.on("refresh", async () => {
+          await this.runUpdates();
+        });
+      }
+
     }
   }
 
@@ -46,6 +54,15 @@ class Plugin {
 
   getType() {
     return this.meta?.companion?.type ?? "";
+  }
+
+  async runUpdates() {
+    if (typeof this.instance.update === "function") {
+      this.instance.update();
+    }
+    if (typeof this.instance.updateAsync === "function") {
+      await this.instance.updateAsync();
+    }
   }
 
 }

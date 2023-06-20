@@ -9,7 +9,7 @@ const IntentObject = require("./intent-object.js");
 
 class Command {
   constructor() {
-    // `companion` is not available in this constructor 
+    // `companion` is not available in this constructor
   }
 
   init() {
@@ -45,7 +45,8 @@ class Command {
         break;
       }
       case "directive": {
-        throw new Error("The Command Type 'directive' is not yet supported!");
+        return this.handleDirective(opts.content);
+        //throw new Error("The Command Type 'directive' is not yet supported!");
         break;
       }
       default: {
@@ -73,6 +74,27 @@ class Command {
     // Otherwise we can return
     return res;
   }
+
+  /**
+   * Function to handle directives, that is objects defining how to control a
+   * device. These aren't complex, and instead the burden of complexity is placed
+   * on whoever calls the command
+   */
+   async handleDirective(obj) {
+     let device = companion.inventory.devices.get(obj.target);
+
+     if (device === undefined) {
+       throw new Error(`Device: ${obj.target} does not exist!`);
+     }
+
+     if (typeof device[obj.command] === "function") {
+       return device[obj.command](obj.params);
+     } else if (typeof device[`${obj.command}Async`] === "function") {
+       return await device[`${obj.command}Async`](obj.params);
+     } else {
+       throw new Error(`Device: ${obj.target} is unable to handle ${obj.command}!`);
+     }
+   }
 
 }
 

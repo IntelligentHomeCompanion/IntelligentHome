@@ -1,9 +1,13 @@
+const Device = require("./device.js");
+
 /**
  * This class is responsible for keeping track and state of all devices added to the system
  */
 class Inventory {
   constructor() {
     this.devices = new Map();
+
+    this.Device = Device;
   }
 
   init() {
@@ -18,6 +22,9 @@ class Inventory {
     let id = device.id ?? device.name;
 
     this.devices.set(id, device);
+
+    this.devices.get(id).init();
+    console.log(this.devices);
   }
 
   /**

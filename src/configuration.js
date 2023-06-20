@@ -23,6 +23,11 @@ class Configuration {
             name: "clock",
             location: "./plugins/clock",
             status: "enabled"
+          },
+          {
+            name: "mystery-binary-switch",
+            location: "./plugins/mystery-binary-switch",
+            status: "enabled"
           }
         ]
       }
