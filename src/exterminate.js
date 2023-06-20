@@ -5,7 +5,7 @@
  */
 class Exterminate {
   constructor() {
-    // `companion` is not available in this constructor 
+    // `companion` is not available in this constructor
     // Registry tracks all items we want to shutdown
     this.registry = new Map();
   }
@@ -15,6 +15,7 @@ class Exterminate {
    * @desc Allows adding a new item to exterminate once the server has to be shut
    * down. Similar to event listeners, requires an ID, and function value.
    * Some IDs are 'reserved' or otherwise special use. Such as "server"
+   * Ensure to add functions as arrow functions to not lose 'this' if applicable
    * @param {string} id - The identifier of your new item
    * @param {function} value - The function to call for extermination
    */

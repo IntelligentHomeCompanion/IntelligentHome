@@ -1,6 +1,6 @@
 class Configuration {
   constructor() {
-    // `companion` is not available in this constructor 
+    // `companion` is not available in this constructor
     // We could collect any environment variables wanted here,
     // but we should leave the configuration collection till init()
     this.config = {};
@@ -12,7 +12,8 @@ class Configuration {
 
     this.config = {
       core: {
-        port: 8080
+        port: 8080,
+        refreshTime: 1000
       },
       pluginManager: {
         pluginListing: [
