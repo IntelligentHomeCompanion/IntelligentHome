@@ -28,6 +28,11 @@ class Configuration {
             name: "mystery-binary-switch",
             location: "./plugins/mystery-binary-switch",
             status: "enabled"
+          },
+          {
+            name: "default-web",
+            location: "./plugins/default-web",
+            status: "enabled"
           }
         ]
       }
@@ -106,6 +111,20 @@ class Configuration {
        return undefined;
      }
 
+   }
+
+   /**
+    * A simple initialization into the layout of any given configuration.
+    * Will add a new key to the root of the existing config, only if not already
+    * present, and walk down the tree adding all values as provided.
+    * While this was originally going to walk the object, ensuring to skip
+    * some type of key determined to be a descriptor, might just set the whole thing.
+    * No harm in a few extra bytes for simplicity
+    */
+   initPlugin(name, conf) {
+     if (typeof this.config[name] === "undefined") {
+       this.config[name] = conf;
+     } // We could error if being asked to add something that already exists?
    }
 
    // Should exist to save the configuration, either on update, or otherwise

@@ -35,7 +35,12 @@ class Timer {
 
     this.timers.forEach((value, key, map) => {
       clearInterval(value);
+      // Then clean the event listener that presumable exists for this event
+      this.timer.removeAllListeners(`refresh-${key.split(":")[0]}`);
     });
+
+    // Remove any listeners of the global timer
+    this.timer.removeAllListeners("refresh");
   }
 
   /**

@@ -44,8 +44,7 @@ Here's a quick list of every `type` that's valid within an IHC plugin:
 
   * `service`: Means your plugin provides a new `service` for intents, such as getting the time, setting alarms, handling intents to then control devices etc.
   * `device`: Your plugin provides support for a new kind of device.
-  * `web`: Your plugin acts as the main backend used within IHC.
-  * `webui`: Your plugin acts as the main frontend used within IHC.
+  * `web`: Your plugin acts as the main web server used within IHC.
   * `webui-theme`: Your plugin provides theming for the main frontend.
 
 ## Writing your Plugins Code - Service
