@@ -69,6 +69,7 @@ class Command {
       }
     }
     this.history.editCommand(historyId, "resolution", res);
+    return res;
   }
 
   /**
@@ -105,7 +106,7 @@ class Command {
      }
 
      this.history.editCommand(historyId, "object", device);
-     
+
      if (typeof device[obj.command] === "function") {
        return device[obj.command](obj.params);
      } else if (typeof device[`${obj.command}Async`] === "function") {

@@ -8,6 +8,7 @@ class PluginManager {
   }
 
   init() {
+    require("../exports/companion.js");
     // Here we would want to begin loading all possible plugins
     this.pluginListing = companion.config.get("pluginManager.pluginListing");
 

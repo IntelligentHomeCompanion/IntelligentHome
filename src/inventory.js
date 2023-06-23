@@ -24,7 +24,7 @@ class Inventory {
     this.devices.set(id, device);
 
     this.devices.get(id).init();
-    console.log(this.devices);
+    return;
   }
 
   /**

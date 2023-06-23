@@ -13,6 +13,9 @@ class CompanionEnvironment {
     this.command = new Command();
     this.timer = new Timer();
     this.inventory = new Inventory();
+    this.Test = (val) => {
+      return `Hello World! ${val}`;
+    };
   }
 
   init() {
