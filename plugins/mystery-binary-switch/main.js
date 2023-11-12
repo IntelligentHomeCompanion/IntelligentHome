@@ -28,11 +28,6 @@ function update() {
   // This will be a function called routinely to allow this plugin to preform an
   // additional search on the network
   console.log("update!");
-  let { Test } = require("companion");
-  console.log(Test("mabe?"));
-  //console.log(require.resolve.paths);
-  //console.log(process.env);
-  //console.log(require.cache);
 }
 
 async function updateAsync() {

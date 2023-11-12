@@ -72,6 +72,11 @@ class Plugin {
     }
   }
 
+  destroyPlugin() {
+    this.instance = undefined;
+    this.meta = {};
+  }
+
   getType() {
     return this.meta?.companion?.type ?? "";
   }
