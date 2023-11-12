@@ -25,6 +25,7 @@ class IntentObject extends SchemaObject {
    */
   isLike(provided, control) {
     // One day do something cool, yeah?
+    // We could event expand this to `isNameLike()` and use the schemas name, and alternateName etc
     return true;
   }
 
