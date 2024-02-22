@@ -12,7 +12,7 @@
 function _getTime(opts) {
   let confidence = 0;
 
-  if (opts.hasProperty("name")) { confidence += 05.; }
+  if (opts.hasProperty("name")) { confidence += 0.5; }
   if (opts.isLike(opts.name, "time")) { confidence += 0.5; }
 
   return confidence;
